@@ -1,6 +1,7 @@
 package com.example.buysell.controllers;
 
 import com.example.buysell.models.User;
+import com.example.buysell.models.enums.Competention;
 import com.example.buysell.models.enums.Role;
 import com.example.buysell.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,7 @@ public class AdminController {
         model.addAttribute("user", user);
         model.addAttribute("user", userService.getUserByPrincipal(principal));
         model.addAttribute("roles", Role.values());
+
         return "user-edit";
     }
 

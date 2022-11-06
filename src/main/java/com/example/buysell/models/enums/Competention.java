@@ -1,0 +1,5 @@
+package com.example.buysell.models.enums;
+
+public enum Competention {
+    JAVA,SQL,JS,C,PASCAL,POSTGRESQL,MYSQL,MONGODB,APACHE,APACHE_KAFKA,NGINX,VPN,BROADCAST,SOLIDITY,ETHERS,HARDHAT,TRUFFLE,GANACHE;
+}

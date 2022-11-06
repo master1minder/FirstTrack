@@ -1,44 +1,38 @@
 <#import "blocks/template.ftlh" as t>
-<@t.template user>
-    <h1 style="text-align: center">Поиск товаров</h1><hr>
+<@t.template user >
+    <div style="color: white;">
+    <h1 style="text-align: center; color: white; font-size: 27px">Лента идей</h1>
     <form method="get" action="/">
-        <div class="form-row">
-            <div class="form-group col-md-2">
-                <label for="searchCity">Город</label>
-                <select id="searchCity" class="form-control">
-                    <option value="">Город не выбран</option>
-                    <option value="Москва">Москва</option>
-                    <option value="Красноярск">Красноярск</option>
-                    <option value="Казань">Казань</option>
-                </select>
-            </div>
-            <div class="form-group col-md-10">
-                <label for="searchWord">Поиск по объявлениям</label>
-                <input type="text" name="searchWord" <#if searchWord??>value="${searchWord}"</#if> class="form-control"
+            <div class="form-row md-12">
+                <input type="text" class="col-md-9" placeholder="Поиск идей" name="searchWord" <#if searchWord??>value="${searchWord}"</#if> class="form-control"
                        id="searchWord">
+                <button  style="width: 10%" type="submit" class="btn  btn-dark">Поиск</button>
             </div>
-            <button style="width: 100%" type="submit" class="btn btn-dark">Поиск</button>
-        </div>
+
     </form>
-    <hr>
-    <div class="card-columns">
+
+    <div class="card-row">
         <#list products as product>
             <a href="/product/${product.id}" class="product-link">
-                <div class="card text-white bg-dark my-3 product">
+                <div style="background: #667096;
+box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.4);
+border-radius: 30px;" class="card text-white bg-dark my-1 mx-12 product">
 
                     <img src="/images/${product.previewImageId}"
-                         class="card-img-top">
+                         class="card-img-top" height="10%">
                     <div class="card-body">
-                        <h5 class="card-title">${product.title}</h5>
-                        <p class="card-text">${product.price} ₽</p>
+                        <h1 class="card-title">${product.title}</h1>
+                        <h2 class="card-title">${product.description}</h2>
+                        <h3 class="card-title">${product.compt}</h3>
+<#--                        <p class="card-text">${product.price} ₽</p>-->
                     </div>
-                    <div class="card-footer">
-                        ${product.city}
-                    </div>
+
                 </div>
             </a>
         <#else>
-            <h1 style="text-align: center">Не найдено</h1>
+            <h1 style="text-align: center; color: white; font-size: 22px">Не найдено</h1>
         </#list>
+    </div>
+
     </div>
 </@t.template>

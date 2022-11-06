@@ -1,6 +1,7 @@
 <#import "blocks/template.ftlh" as t>
 <@t.template userByPrincipal>
-    <h1 style="text-align: center">Информация о пользователе</h1>
+    <div style="color:aliceblue">
+    <h1 style="text-align: center; color: white">Информация о пользователе</h1>
     <hr>
     <div style="text-align: center">
             <img src="/static/images/avatar.png"
@@ -34,5 +35,7 @@
         <#else>
             <h1 style="text-align: center">Не найдено</h1>
         </#list>
+    </div>
+
     </div>
 </@t.template>

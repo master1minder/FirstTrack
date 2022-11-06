@@ -1,5 +1,6 @@
 package com.example.buysell.models;
 
+import com.example.buysell.models.enums.Competention;
 import com.example.buysell.models.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,11 +27,24 @@ public class User implements UserDetails {
     @Column(length = 1000)
     private String password;
 
+    @Column(length = 100000)
+    private String desc;
+
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role",
     joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
+
+    //компетенции
+    @ElementCollection(targetClass = Competention.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_competention",
+            joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Competention> competentions = new HashSet<>();
+
+
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
     mappedBy = "user")
@@ -43,6 +57,18 @@ public class User implements UserDetails {
 
     public boolean isAdmin() {
         return roles.contains(Role.ROLE_ADMIN);
+    }
+
+    public boolean isModer() {
+        return roles.contains(Role.ROLE_MODERATOR);
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public Image getAvatar() {
@@ -121,6 +147,13 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public Set<Competention> getCompetentions() {
+        return competentions;
+    }
+
+    public void setCompetentions(Set<Competention> competentions) {
+        this.competentions = competentions;
+    }
 
     // security config
 
@@ -157,5 +190,23 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return active;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", avatar=" + avatar +
+                ", active=" + active +
+                ", activationCode='" + activationCode + '\'' +
+                ", password='" + password + '\'' +
+                ", desc='" + desc + '\'' +
+                ", roles=" + roles +
+                ", competentions=" + competentions +
+                ", products=" + products +
+                '}';
     }
 }

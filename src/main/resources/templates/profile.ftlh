@@ -1,6 +1,7 @@
 <#import "blocks/template.ftlh" as t>
 <@t.template user>
-    <h1 style="text-align: center">Личный кабинет</h1>
+    <div style="color:aliceblue">
+    <h1 style="text-align: center;color: white">Личный кабинет</h1>
     <hr>
     <br>
     <div style="text-align: center">
@@ -14,6 +15,10 @@
         <br>
         Контакты: <b>${user.phoneNumber}</b>
         <br>
+        Компетенции: <#list user.competentions as comp>${comp+"  "}</#list>
+        <br>
+        О себе: <b>${user.desc}</b>
+
         <br>
         <#if user.isAdmin()>
             <a class="btn btn-dark mb-3" style="text-align: center; width: 100%"
@@ -23,7 +28,11 @@
         </#if>
         <a class="btn btn-dark mb-3" style="text-align: center; width: 100%"
            href="/my/products">
-            Мои товары
+            Мои проекты
+        </a>
+        <a class="btn btn-dark mb-3" style="text-align: center; width: 100%"
+           href="/user/edit/${user.id}">
+            Редактировать профиль
         </a>
         <form action="/logout" method="post">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
@@ -31,5 +40,6 @@
                 Выйти из аккаунта
             </button>
         </form>
+    </div>
     </div>
 </@t.template>

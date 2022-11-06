@@ -16,8 +16,9 @@ public class Product {
     private Long id;
     private String title;
     private String description;
+    private String compt;
     private Integer price;
-    private String city;
+//    private String city;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
     mappedBy = "product")
     private List<Image> images = new ArrayList<>();

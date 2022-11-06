@@ -1,5 +1,6 @@
 <#import "blocks/template.ftlh" as t>
 <@t.template user>
+    <div style="color:aliceblue">
     `<h1 style="text-align: center">Панель администратора</h1><hr>
     <table class="table table-hover table-dark">
         <tr>
@@ -30,4 +31,5 @@
             <h3>Пользователей нет</h3>
         </#list>
     </table>
+    </div>
 </@t.template>

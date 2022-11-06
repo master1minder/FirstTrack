@@ -1,6 +1,7 @@
 package com.example.buysell.services;
 
 import com.example.buysell.models.User;
+import com.example.buysell.models.enums.Competention;
 import com.example.buysell.models.enums.Role;
 import com.example.buysell.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,16 +27,30 @@ public class UserService {
         String email = user.getEmail();
         if (userRepository.findByEmail(email) != null) return false;
         user.setActive(true);
+        user.setDesc("");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         //Todo пофиксить при переходе на нормальную бд
         if (user.getName().equals("Admin")) {
             user.getRoles().add(Role.ROLE_ADMIN);
         }
         user.getRoles().add(Role.ROLE_USER);
+        for(Competention comp : user.getCompetentions())
+            user.getCompetentions().add(comp);
         log.info("Saving new User with email: {}", email);
         userRepository.save(user);
         return true;
     }
+
+    public boolean updateUser(User user) {
+        String email = user.getEmail();
+        if (userRepository.findByEmail(email) != null) return false;
+        for(Competention comp : user.getCompetentions())
+            user.getCompetentions().add(comp);
+        log.info("Saving new User with email: {}", email);
+        userRepository.save(user);
+        return true;
+    }
+
 
     public List<User> list() {
         return userRepository.findAll();
@@ -67,6 +82,25 @@ public class UserService {
         }
         userRepository.save(user);
     }
+
+    public void changeUserComp(User user, Map<String, String> form, Integer id) {
+        User us = userRepository.getById(Long.valueOf(id));
+
+        Set<String> comp = Arrays.stream(Competention.values())
+                .map(Competention::name)
+                .collect(Collectors.toSet());
+        user.getCompetentions().clear();
+        for (String key : form.keySet()) {
+            if (comp.contains(key)) {
+                us.getCompetentions().add(Competention.valueOf(key));
+            }
+        }
+        us.setDesc(user.getDesc());
+        us.setEmail(user.getEmail());
+        us.setName(user.getName());
+        userRepository.save(us);
+    }
+
 
     public User getUserByPrincipal(Principal principal) {
         if (principal == null) return new User();

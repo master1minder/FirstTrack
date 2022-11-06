@@ -1,5 +1,6 @@
 <#import "blocks/template.ftlh" as t>
 <@t.template user>
+    <div style="color:aliceblue">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <#list images as image>
@@ -37,9 +38,13 @@
         </a>
     </div>
     <hr>
-    <p><h1 style="text-align: center">${product.title} | ${product.price} ₽</h1></p>
+    <p><h1 style="text-align: center">${product.title} </h1></p>
     <p style="text-align: center">${product.description}</p>
-    <p style="text-align: center">Контакты: <b>${authorProduct.phoneNumber}</b></p>
+    <p style="text-align: center">${product.compt}</p>
+    <a class="btn btn-dark mb-3" style="text-align: center; width: 100%"
+       href="http://localhost:3000">
+        Написать
+    </a>
 
     <hr>
     <p style="text-align: center">
@@ -47,5 +52,5 @@
             <img src="/static/images/avatar.png" alt="mdo" width="32" height="32" class="rounded-circle"> ${authorProduct.name}
         </a>
     </p>
-
+    </div>
 </@t.template>
